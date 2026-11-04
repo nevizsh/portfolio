@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router'
 import VitrineLayout from './layouts/VitrineLayout'
 import ArchivesLayout from './layouts/ArchivesLayout'
@@ -15,6 +16,9 @@ import Competence from './pages/archives/Competence'
 import Matrice from './pages/archives/Matrice'
 import { referentiel } from './data/referentiel'
 
+// Planche des composants : chargée seulement en développement, absente du site publié
+const Composants = import.meta.env.DEV ? lazy(() => import('./pages/Composants')) : null
+
 export default function App() {
   return (
     <Routes>
@@ -25,6 +29,16 @@ export default function App() {
         <Route path="projets/:slug" element={<Projet />} />
         <Route path="profil" element={<Profil />} />
         <Route path="mentions-legales" element={<MentionsLegales />} />
+        {Composants && (
+          <Route
+            path="_composants"
+            element={
+              <Suspense>
+                <Composants />
+              </Suspense>
+            }
+          />
+        )}
         <Route path="*" element={<Introuvable />} />
       </Route>
 
