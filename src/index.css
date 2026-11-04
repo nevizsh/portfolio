@@ -1,111 +1,123 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+@import "tailwindcss";
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+/* Contenu repris tel quel de docs/design/theme.css (passation design). */
+/* ==========================================================================
+   Portfolio 2026 — nevizsh · « Art déco nocturne », version cinéma
+   Jetons de design repris des variables Figma (fichier « Portfolio 2026 »).
+   À placer dans src/index.css, juste après  @import "tailwindcss";
+   Les noms suivent la « code syntax » des variables Figma :
+   une variable Figma fond/surface  →  --color-fond-surface  →  bg-fond-surface
+   ========================================================================== */
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme {
+  /* --- Polices (Google Fonts) -------------------------------------------
+     Poiret One 400 · Cormorant Garamond 500 et 500 italique ·
+     DM Sans 400 et 600 · JetBrains Mono 400                                */
+  --font-display: "Poiret One", ui-serif, Georgia, serif;         /* « NEVII » du fronton, rien d'autre */
+  --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;   /* titres, accroches */
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;   /* texte, boutons */
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;         /* métadonnées en capitales espacées */
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
+  /* --- Primitives (collection Figma « Primitives ») ----------------------- */
+  --color-encre: #0e0b0a;
+  --color-papier: #faeec9;
+  --color-vermillon: #e34234;
+  --color-turquoise: #4fab9d;
+  --color-vermillon-sombre: #a82e1e;
+  --color-canard-profond: #16505a;
+  --color-ocre: #dec484;
+  --color-rose-chair: #e6cbbe;
+  --color-argent: #aeb6c4; /* hors palette de marque : métal des objets uniquement (pince des affiches) */
+
+  /* --- Rôles (collection Figma « Thème », mode Sombre) -------------------- */
+  /* Fonds */
+  --color-fond-base: var(--color-encre);             /* la salle : fond de page */
+  --color-fond-surface: var(--color-canard-profond); /* écran, étiquettes, médaillons — pas en fond de carte */
+  --color-fond-piece: var(--color-papier);           /* tickets, affiches, cartes de compétences */
+  --color-fond-accent: var(--color-vermillon);       /* ticket principal, filtre actif, codes AC en étiquette */
+
+  /* Textes */
+  --color-texte-principal: var(--color-papier);            /* 16,9:1 sur Encre */
+  --color-texte-secondaire: var(--color-rose-chair);       /* 12,7:1 — chapôs, légendes */
+  --color-texte-meta: var(--color-turquoise);              /* 7,1:1 — numéros, codes AC, liens, compteurs */
+  --color-texte-titre-accent: var(--color-vermillon);      /* 4,8:1 — accents, lien actif, à garder rare */
+  --color-texte-ornement: var(--color-ocre);               /* 11,5:1 — « PORTFOLIO 2026 », titre pro, générique */
+  --color-texte-sur-piece: var(--color-encre);             /* texte sur Papier ou sur Ocre */
+  --color-texte-sur-piece-accent: var(--color-vermillon-sombre); /* 5,9:1 sur Papier */
+  --color-texte-sur-accent: var(--color-encre);            /* texte sur Vermillon : 4,8:1 */
+
+  /* Bordures */
+  --color-bordure-filet: var(--color-ocre);           /* filets, cadres (opacité réduite sur Encre, voir plus bas) */
+  --color-bordure-discrete: var(--color-canard-profond);
+  --color-bordure-accent: var(--color-vermillon);     /* focus */
+
+  /* Accents */
+  --color-accent-ombre: var(--color-vermillon-sombre);
+  --color-accent-reflet: var(--color-ocre);           /* faisceau du projecteur, ruban, « À l'affiche » */
+  --color-accent-froid: var(--color-turquoise);
+  --color-accent-metal: var(--color-argent);          /* pince des affiches */
+
+  /* --- Ombres ------------------------------------------------------------- */
+  --shadow-ticket: 0 6px 14px rgb(0 0 0 / 0.4);
+  --shadow-affiche: 0 16px 36px rgb(0 0 0 / 0.5);
+  --shadow-carte: 0 10px 20px rgb(0 0 0 / 0.4);
+  --shadow-ecran: 0 0 80px rgb(222 196 132 / 0.1);   /* lueur ocre diffuse autour de l'écran vidéo */
+
+  /* --- Mouvement : lent et feutré ----------------------------------------- */
+  --ease-salle: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --duration-fondu: 600ms;
+  --duration-survol: 350ms;
+}
+
+/* Opacités de filet Ocre sur fond Encre (vérifiées dans Figma) :
+     lignes de tableau 20 % · infos clés 30 % · contour des filtres 50 %
+     en-tête de tableau 60 % · cadres 100 %
+   En Tailwind : border-bordure-filet/20, /30, /50, /60.
+   Surfaces légères (pitch, « Mon bilan », cartes d'accès, ligne survolée) :
+     bg-papier/3 à bg-papier/4, jamais bg-fond-surface.
+
+   Règles de contraste :
+   - Vermillon sombre (2,9:1) et Canard profond (2,2:1) : jamais en texte sur Encre.
+   - Papier : texte, tickets, affiches et cartes ; jamais en grand aplat de fond de page.
+   - Sur Papier, les filets sont en Encre (20 à 50 %), pas en Ocre.
+   - Argent : uniquement pour le métal (pince des affiches). */
+
+@layer base {
+  html {
+    background-color: var(--color-fond-base);
+    color: var(--color-texte-principal);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-bordure-accent);
+    outline-offset: 3px;
+  }
+
+  /* Animations coupées si l'utilisateur le demande : tout s'affiche, simple fondu au plus */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+@layer components {
+  /* Métadonnées : JetBrains Mono en capitales espacées */
+  .meta {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
   }
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+/* Tailwind v4 ne crée pas de classes à partir des variables --duration-* :
+   on déclare donc les deux durées de la passation comme utilitaires. */
+@utility duration-survol {
+  transition-duration: var(--duration-survol);
 }
-
-body {
-  margin: 0;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+@utility duration-fondu {
+  transition-duration: var(--duration-fondu);
 }
