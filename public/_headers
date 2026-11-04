@@ -1,0 +1,5 @@
+/archives
+  X-Robots-Tag: noindex, nofollow
+
+/archives/*
+  X-Robots-Tag: noindex, nofollow
