@@ -13,7 +13,7 @@ import ProjetsArchives from './pages/archives/Projets'
 import ProjetArchives from './pages/archives/Projet'
 import Competence from './pages/archives/Competence'
 import Matrice from './pages/archives/Matrice'
-import { competences } from './data/competences'
+import { referentiel } from './data/referentiel'
 
 export default function App() {
   return (
@@ -33,7 +33,7 @@ export default function App() {
         <Route index element={<AccueilArchives />} />
         <Route path="projets" element={<ProjetsArchives />} />
         <Route path="projets/:slug" element={<ProjetArchives />} />
-        <Route path="competences" element={<Navigate to={competences[0].slug} replace />} />
+        <Route path="competences" element={<Navigate to={referentiel[0].slug} replace />} />
         <Route path="competences/:nom" element={<Competence />} />
         <Route path="matrice" element={<Matrice />} />
         <Route path="*" element={<PageProvisoire rubrique="Archives · Erreur 404" titre="Page introuvable" />} />
