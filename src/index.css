@@ -121,3 +121,17 @@
 @utility duration-fondu {
   transition-duration: var(--duration-fondu);
 }
+
+/* Apparition des sections au défilement (composant Apparition) :
+   montée de 16 px + fondu, une fois. Rien n'est masqué si le mouvement est réduit. */
+@media (prefers-reduced-motion: no-preference) {
+  .apparition {
+    transition:
+      opacity var(--duration-fondu) var(--ease-salle),
+      translate var(--duration-fondu) var(--ease-salle);
+  }
+  .apparition:not(.est-visible) {
+    opacity: 0;
+    translate: 0 16px;
+  }
+}
