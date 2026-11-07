@@ -51,7 +51,7 @@ export default function CadreArtDeco({ children, coupe = 18, eventail = false, c
         />
       </svg>
 
-      <div className="relative">{children}</div>
+      <div className="relative h-full">{children}</div>
     </div>
   )
 }
