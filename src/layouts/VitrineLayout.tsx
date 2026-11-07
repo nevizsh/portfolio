@@ -81,7 +81,7 @@ function MenuMobile() {
 
 function Navigation() {
   return (
-    <header className="border-b border-bordure-discrete md:border-b-0">
+    <header data-ouverture-nav className="relative z-10 border-b border-bordure-discrete md:border-b-0">
       <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-5 md:h-20 md:px-20">
         <Logo className="text-[24px] md:text-[28px]" />
 
