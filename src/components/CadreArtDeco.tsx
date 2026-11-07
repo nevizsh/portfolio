@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import Eventail from './Eventail'
 import { formeCadre } from './formes'
 import { useTaille } from './useTaille'
 
@@ -23,20 +24,7 @@ export default function CadreArtDeco({ children, coupe = 18, eventail = false, c
 
   return (
     <div ref={ref} className={`relative ${className}`}>
-      {eventail && (
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 68 34"
-          width="68"
-          height="34"
-          className="eventail absolute -top-10 left-1/2 -translate-x-1/2 text-bordure-filet opacity-55"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="0.8"
-        >
-          <path d="M34 34H0M34 34L2.6 21M34 34L10 10M34 34L21 2.6M34 34V0M34 34L47 2.6M34 34L58 10M34 34L65.4 21M34 34H68" />
-        </svg>
-      )}
+      {eventail && <Eventail className="absolute -top-10 left-1/2 -translate-x-1/2" />}
 
       <svg aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" viewBox={`0 0 ${w} ${h}`}>
         <path className="filet-cadre stroke-bordure-filet" d={formeCadre(w, h, coupe)} fill="none" strokeWidth="1" pathLength={1} />
