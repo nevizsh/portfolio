@@ -10,7 +10,22 @@ export const profil = {
     { libelle: 'Alternance', valeur: 'Développeuse web · ISI NC' },
     { libelle: 'Recherche', valeur: '[Alternance, master, premier poste…]' },
   ],
+  /** Parcours, affiché comme un générique (du plus récent au plus ancien) */
+  parcours: [
+    { role: 'Formation', dates: '[Dates]', intitule: 'BUT MMI — Développement web et dispositifs interactifs', lieu: 'Université de la Nouvelle-Calédonie' },
+    { role: 'Alternance', dates: '[Dates]', intitule: 'Développeuse web', lieu: 'ISI NC' },
+    { role: '[Étape précédente]', dates: '[Dates]', intitule: "[Intitulé de l'étape]", lieu: '[Établissement]' },
+  ],
+  /** « Ce que je sais faire » : les 5 compétences en langage clair (pas de code AC sur la vitrine) */
+  savoirFaire: [
+    { titre: 'Comprendre les utilisateurs', texte: '[Ce que tu sais faire, avec un exemple concret]' },
+    { titre: 'Concevoir des solutions', texte: '[Ce que tu sais faire, avec un exemple concret]' },
+    { titre: 'Créer contenus et interfaces', texte: '[Ce que tu sais faire, avec un exemple concret]' },
+    { titre: 'Développer pour le web', texte: '[Ce que tu sais faire, avec un exemple concret]' },
+    { titre: 'Mener un projet', texte: '[Ce que tu sais faire, avec un exemple concret]' },
+  ],
   portrait: '',
   video: { src: '', sousTitres: '', image: '' },
+  /** Chemin du CV : déposer le fichier dans public/ (par ex. public/cv.pdf → '/cv.pdf') */
   cv: '',
 }

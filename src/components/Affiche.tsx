@@ -15,7 +15,8 @@ type AfficheProps = {
   logo?: string
   /** Image du projet : remplace l'intérieur de la fenêtre */
   visuel?: string
-  href: string
+  /** Lien vers la page du projet ; sans lien, l'affiche n'est qu'une image (en-tête de la page projet) */
+  href?: string
   /** Ruban « À l'affiche » : seulement si selection ET sur la page Projets */
   ruban?: boolean
   /** Largeur affichée en px (référence 360 ; 280 dans la grille Projets) */
@@ -96,116 +97,125 @@ export default function Affiche(props: AfficheProps) {
   const inclinaison = props.inclinaison ?? inclinaisonDe(slug)
 
   // Reflet vitrine : la bande de lumière suit la souris (pas au doigt, pas si mouvement réduit)
-  const suivre = (e: PointerEvent<HTMLAnchorElement>) => {
+  const suivre = (e: PointerEvent<HTMLElement>) => {
     if (e.pointerType !== 'mouse' || matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const r = e.currentTarget.getBoundingClientRect()
     e.currentTarget.style.setProperty('--mx', `${((e.clientX - r.left) / r.width) * 100}%`)
     e.currentTarget.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`)
   }
-  const reinitialiser = (e: PointerEvent<HTMLAnchorElement>) => {
+  const reinitialiser = (e: PointerEvent<HTMLElement>) => {
     e.currentTarget.style.removeProperty('--mx')
     e.currentTarget.style.removeProperty('--my')
   }
 
-  return (
-    <Link
-      to={href}
-      onPointerMove={suivre}
-      onPointerLeave={reinitialiser}
-      style={{ width: largeur, height: largeur * (4 / 3), rotate: `${inclinaison}deg` }}
-      className={
-        'group relative block shrink-0 rounded-[4px] shadow-affiche transition-[rotate,translate,box-shadow] duration-fondu ease-salle ' +
-        'hover:-translate-y-2 hover:!rotate-0 hover:shadow-[0_28px_56px_rgb(0_0_0/0.55)] ' +
-        `focus-visible:-translate-y-2 focus-visible:!rotate-0 ${className}`
-      }
-    >
-      {/* Toile à la taille de référence, mise à l'échelle */}
-      <div
-        className="absolute top-0 left-0 h-[480px] w-[360px] origin-top-left overflow-hidden rounded-[4px] bg-fond-piece text-texte-sur-piece"
-        style={{ transform: `scale(${echelle})` }}
-      >
-        {/* 1. Losanges */}
+  const style = { width: largeur, height: largeur * (4 / 3), rotate: `${inclinaison}deg` }
+  const classes =
+    'group relative block shrink-0 rounded-[4px] shadow-affiche transition-[rotate,translate,box-shadow] duration-fondu ease-salle ' +
+    'hover:-translate-y-2 hover:!rotate-0 hover:shadow-[0_28px_56px_rgb(0_0_0/0.55)] ' +
+    `focus-visible:-translate-y-2 focus-visible:!rotate-0 ${className}`
+
+  const contenu = (
+    <>
+        {/* Toile à la taille de référence, mise à l'échelle */}
         <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              'repeating-linear-gradient(45deg, var(--color-encre) 0 1px, transparent 1px 19px),' +
-              'repeating-linear-gradient(-45deg, var(--color-encre) 0 1px, transparent 1px 19px)',
-          }}
-        />
-        {/* 2. Double cadre */}
-        <div aria-hidden="true" className="absolute inset-[10px] border border-encre/50" />
-        <div aria-hidden="true" className="absolute inset-[15px] border-[0.5px] border-encre/22" />
+          className="absolute top-0 left-0 h-[480px] w-[360px] origin-top-left overflow-hidden rounded-[4px] bg-fond-piece text-texte-sur-piece"
+          style={{ transform: `scale(${echelle})` }}
+        >
+          {/* 1. Losanges */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage:
+                'repeating-linear-gradient(45deg, var(--color-encre) 0 1px, transparent 1px 19px),' +
+                'repeating-linear-gradient(-45deg, var(--color-encre) 0 1px, transparent 1px 19px)',
+            }}
+          />
+          {/* 2. Double cadre */}
+          <div aria-hidden="true" className="absolute inset-[10px] border border-encre/50" />
+          <div aria-hidden="true" className="absolute inset-[15px] border-[0.5px] border-encre/22" />
 
-        {/* 3. En-tête */}
-        <p className="absolute top-[24px] w-full text-center font-serif text-[14px] leading-none italic">
-          N° {numero} · {annee}
-        </p>
-        <p className="absolute top-[40px] flex w-full items-center justify-center gap-3 font-serif text-[22px] leading-[28px] font-medium">
-          <span aria-hidden="true" className="h-px w-[60px] bg-encre" />
-          <span className="max-w-[200px] truncate">{categorie}</span>
-          <span aria-hidden="true" className="h-px w-[60px] bg-encre" />
-        </p>
+          {/* 3. En-tête */}
+          <p className="absolute top-[24px] w-full text-center font-serif text-[14px] leading-none italic">
+            N° {numero} · {annee}
+          </p>
+          <p className="absolute top-[40px] flex w-full items-center justify-center gap-3 font-serif text-[22px] leading-[28px] font-medium">
+            <span aria-hidden="true" className="h-px w-[60px] bg-encre" />
+            <span className="max-w-[200px] truncate">{categorie}</span>
+            <span aria-hidden="true" className="h-px w-[60px] bg-encre" />
+          </p>
 
-        {/* 4. Fenêtre ornée et son contour décalé */}
-        <svg viewBox="0 0 320 284" width="320" height="284" className="absolute top-[60px] left-[20px]" aria-hidden="true">
-          <path d={CONTOUR} fill="none" className="stroke-encre" strokeWidth="0.6" />
-        </svg>
-        <Fenetre visuel={visuel} />
+          {/* 4. Fenêtre ornée et son contour décalé */}
+          <svg viewBox="0 0 320 284" width="320" height="284" className="absolute top-[60px] left-[20px]" aria-hidden="true">
+            <path d={CONTOUR} fill="none" className="stroke-encre" strokeWidth="0.6" />
+          </svg>
+          <Fenetre visuel={visuel} />
 
-        {/* 5. Étiquette suspendue (le titre) et sa ficelle. Figma -5° = CSS +5° (sens inverse) */}
-        <svg viewBox="0 0 40 40" width="40" height="40" className="absolute top-[70px] left-[40px]" aria-hidden="true">
-          <path d="M2 38C10 20 22 8 38 2" fill="none" className="stroke-encre" strokeWidth="1" />
-        </svg>
-        <p className="absolute top-[104px] left-[16px] flex origin-left rotate-5 items-center gap-2 rounded-[18px] border border-ocre bg-fond-surface py-2 pr-4 pl-3 whitespace-nowrap shadow-[0_4px_8px_rgb(0_0_0/0.3)]">
-          <span aria-hidden="true" className="size-[9px] rounded-full border border-ocre bg-papier" />
-          <span className="font-sans text-[16px] leading-none font-semibold text-papier">{titre}</span>
-        </p>
+          {/* 5. Étiquette suspendue (le titre) et sa ficelle. Figma -5° = CSS +5° (sens inverse) */}
+          <svg viewBox="0 0 40 40" width="40" height="40" className="absolute top-[70px] left-[40px]" aria-hidden="true">
+            <path d="M2 38C10 20 22 8 38 2" fill="none" className="stroke-encre" strokeWidth="1" />
+          </svg>
+          <p className="absolute top-[104px] left-[16px] flex origin-left rotate-5 items-center gap-2 rounded-[18px] border border-ocre bg-fond-surface py-2 pr-4 pl-3 whitespace-nowrap shadow-[0_4px_8px_rgb(0_0_0/0.3)]">
+            <span aria-hidden="true" className="size-[9px] rounded-full border border-ocre bg-papier" />
+            <span className="font-sans text-[16px] leading-none font-semibold text-papier">{titre}</span>
+          </p>
 
-        {/* 6. Pince argent */}
-        <svg viewBox="0 0 30 54" width="30" height="54" className="absolute top-[28.5px] left-[-0.5px] drop-shadow-[0_2px_2px_rgb(0_0_0/0.25)]" aria-hidden="true">
-          <path d={PINCE_EXT} className="fill-accent-metal stroke-encre" strokeWidth="1" />
-          <path d={PINCE_INT} fill="none" className="stroke-encre" strokeWidth="0.8" />
-        </svg>
+          {/* 6. Pince argent */}
+          <svg viewBox="0 0 30 54" width="30" height="54" className="absolute top-[28.5px] left-[-0.5px] drop-shadow-[0_2px_2px_rgb(0_0_0/0.25)]" aria-hidden="true">
+            <path d={PINCE_EXT} className="fill-accent-metal stroke-encre" strokeWidth="1" />
+            <path d={PINCE_INT} fill="none" className="stroke-encre" strokeWidth="0.8" />
+          </svg>
 
-        {/* 7. Ruban de coin */}
-        <svg viewBox="0 0 120 120" width="120" height="120" className="absolute top-0 left-[240px]" aria-hidden="true">
-          <path d="M40 0H74L120 46V80L40 0Z" className="fill-ocre stroke-encre" strokeWidth="0.6" />
-        </svg>
+          {/* 7. Ruban de coin */}
+          <svg viewBox="0 0 120 120" width="120" height="120" className="absolute top-0 left-[240px]" aria-hidden="true">
+            <path d="M40 0H74L120 46V80L40 0Z" className="fill-ocre stroke-encre" strokeWidth="0.6" />
+          </svg>
 
-        {/* 8. Étincelles */}
-        <svg viewBox="0 0 360 480" width="360" height="480" className="pointer-events-none absolute inset-0" aria-hidden="true">
-          {ETINCELLES.map(([x, y, t, o]) => (
-            <Etincelle key={`${x}-${y}`} x={x} y={y} taille={t} className="fill-encre" opacite={o} />
-          ))}
-        </svg>
+          {/* 8. Étincelles */}
+          <svg viewBox="0 0 360 480" width="360" height="480" className="pointer-events-none absolute inset-0" aria-hidden="true">
+            {ETINCELLES.map(([x, y, t, o]) => (
+              <Etincelle key={`${x}-${y}`} x={x} y={y} taille={t} className="fill-encre" opacite={o} />
+            ))}
+          </svg>
 
-        {/* 9. Accroche */}
-        <p className="absolute top-[344px] w-full px-8 text-center font-serif text-[19px] leading-tight font-medium">{accroche}</p>
+          {/* 9. Accroche */}
+          <p className="absolute top-[344px] w-full px-8 text-center font-serif text-[19px] leading-tight font-medium">{accroche}</p>
 
-        {/* 10. Encart et médaillon */}
-        <p className="absolute top-[398px] left-[62px] flex h-[66px] w-[272px] items-center rounded-[10px] bg-encre/7 pr-4 pl-[62px] font-sans text-[12px] leading-snug">
-          {[role, ...technos].join(' · ')}
-        </p>
-        <div aria-hidden="true" className="absolute top-[392px] left-[22px] flex size-[76px] items-center justify-center rounded-full border border-encre bg-papier">
-          <div className="flex size-[62px] items-center justify-center overflow-hidden rounded-full bg-fond-surface">
-            {logo ? <img src={logo} alt="" className="size-full object-cover" /> : <span className="font-mono text-[9px] tracking-[0.12em] text-papier uppercase">Logo</span>}
+          {/* 10. Encart et médaillon */}
+          <p className="absolute top-[398px] left-[62px] flex h-[66px] w-[272px] items-center rounded-[10px] bg-encre/7 pr-4 pl-[62px] font-sans text-[12px] leading-snug">
+            {[role, ...technos].join(' · ')}
+          </p>
+          <div aria-hidden="true" className="absolute top-[392px] left-[22px] flex size-[76px] items-center justify-center rounded-full border border-encre bg-papier">
+            <div className="flex size-[62px] items-center justify-center overflow-hidden rounded-full bg-fond-surface">
+              {logo ? <img src={logo} alt="" className="size-full object-cover" /> : <span className="font-mono text-[9px] tracking-[0.12em] text-papier uppercase">Logo</span>}
+            </div>
           </div>
+
+          {/* 11. Reflet vitrine (au-dessus de tout) */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 rounded-[4px] shadow-[inset_0_0_0_1px_rgb(255_255_255/0.25)]"
+            style={{
+              backgroundImage:
+                'linear-gradient(115deg, transparent calc(var(--mx, 38%) - 22%), rgb(255 255 255 / 0.28) var(--mx, 38%), transparent calc(var(--mx, 38%) + 22%))',
+            }}
+          />
         </div>
 
-        {/* 11. Reflet vitrine (au-dessus de tout) */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[4px] shadow-[inset_0_0_0_1px_rgb(255_255_255/0.25)]"
-          style={{
-            backgroundImage:
-              'linear-gradient(115deg, transparent calc(var(--mx, 38%) - 22%), rgb(255 255 255 / 0.28) var(--mx, 38%), transparent calc(var(--mx, 38%) + 22%))',
-          }}
-        />
-      </div>
+        {ruban && <RubanAffiche className="absolute -top-3 left-1/2 z-10 -translate-x-1/2" />}
+    </>
+  )
 
-      {ruban && <RubanAffiche className="absolute -top-3 left-1/2 z-10 -translate-x-1/2" />}
+  if (!href) {
+    return (
+      <div role="img" aria-label={`Affiche du projet ${titre}`} style={style} className={`${classes} hover:!translate-y-0`} onPointerMove={suivre} onPointerLeave={reinitialiser}>
+        {contenu}
+      </div>
+    )
+  }
+  return (
+    <Link to={href} style={style} className={classes} onPointerMove={suivre} onPointerLeave={reinitialiser}>
+      {contenu}
     </Link>
   )
 }
