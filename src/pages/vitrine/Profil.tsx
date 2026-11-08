@@ -33,8 +33,7 @@ export default function Profil() {
           <div>
             <p className="meta text-[12px] text-texte-meta md:text-[13px]">Profil</p>
             <h1 className="mt-4 font-serif text-[64px] leading-[0.95] font-medium md:text-[104px]">{profil.nom}</h1>
-            <p className="mt-5 font-serif text-[24px] italic text-texte-secondaire md:text-[28px]">{profil.titrePro}</p>
-            <p className="mt-5 max-w-[660px] text-[16px] leading-relaxed text-texte-secondaire md:text-[18px]">{profil.presentation}</p>
+            <p className="mt-6 max-w-[660px] text-[16px] leading-relaxed text-texte-secondaire md:text-[18px]">{profil.presentation}</p>
             <InfosCles infos={profil.infosCles} className="mt-6 max-w-[720px]" />
             <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row">
               <Ticket label="Télécharger le CV" sousTitre="PDF" href={profil.cv || '/cv.pdf'} />

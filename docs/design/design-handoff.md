@@ -78,7 +78,7 @@ ac: []                 # codes AC du référentiel DWEB
 Tout est dans `theme.css` (bloc `@theme` Tailwind v4). Les noms correspondent à la « code syntax » des variables Figma : `fond/surface` → `--color-fond-surface` → `bg-fond-surface`.
 
 **Polices** (Google Fonts, `display=swap`, préconnexion) :
-- **Poiret One** 400 : uniquement « NEVII » sur le fronton de l'accueil (`font-display`).
+- **Poiret One** 400 : uniquement « Geneviève » sur le fronton de l'accueil (`font-display`).
 - Cormorant Garamond 500 et 500 italique : titres, accroches (`font-serif`).
 - DM Sans 400 et 600 : texte, libellés de tickets (`font-sans`).
 - JetBrains Mono 400 : métadonnées en capitales espacées de 10 à 14 % (numéros, années, technos, codes AC, rubriques) (`font-mono`, classe `.meta`).
@@ -189,7 +189,7 @@ intérieur (trait 0,6 px, 50 %) : M22.8 8H737.2L752 22.8V297.2L737.2 312H22.8L8 
 ```
 viewBox="0 0 68 34"  M34 34H0M34 34L2.6 21M34 34L10 10M34 34L21 2.6M34 34V0M34 34L47 2.6M34 34L58 10M34 34L65.4 21M34 34H68
 ```
-Contenu du fronton (centré) : « PORTFOLIO 2026 » mono 13 px Ocre espacé 34 % ; « NEVII » Poiret One 150 px espacé 22 %, Papier, halo ocre (`text-shadow: 0 0 36px rgb(222 196 132 / .35)`) ; séparateur (deux filets Ocre de 70 px + étoile Vermillon de 11 px) ; « [TON TITRE PRO] » mono 13 px Ocre espacé 26 %.
+Contenu du fronton (centré) : « PORTFOLIO 2026 » mono 13 px Ocre espacé 34 % ; « GENEVIÈVE » Poiret One espacé 22 %, taille liée à la largeur du cadre (`14cqi`, environ 100 px sur ordinateur, 42 px sur mobile ; 150 px débordait avec 9 lettres), Papier, halo ocre (`text-shadow: 0 0 36px rgb(222 196 132 / .35)`) ; séparateur (deux filets Ocre de 70 px + étoile Vermillon de 11 px). Pas de titre pro.
 Portrait : même cadre (coupe 16 px), 400 × 500 au profil, 260 × 320 en mobile, emplacement `Visuel` en retrait de 18 px.
 
 ### Faisceau du projecteur
@@ -226,7 +226,7 @@ Tableaux sobres : en-tête mono 11 px Turquoise espacé 12 % avec filet bas Ocre
 | `/` | Voir « Accueil » ci-dessous |
 | `/projets` | En-tête avec faisceau : éventail, « AU PROGRAMME » (mono), « Projets » (Cormorant 80), une phrase. Filtres centrés : Tout + les domaines présents dans les MDX, avec compteurs ; ligne « N PROJETS · LA SÉLECTION EN PREMIER ». Grille de 4 affiches de 280 px par ligne (espacement 40 × 80), la sélection d'abord (ruban « À l'affiche »), puis les autres projets publics. Filtre dans l'adresse (`?domaine=video`). Mobile : puces en défilement horizontal, 1 affiche par ligne (2 sur tablette) |
 | `/projets/:slug` | En-tête avec faisceau : fil d'Ariane « Projets / Titre », affiche du projet à gauche (×1,12, -2°) ; à droite « N° 0X · [ANNÉE] · [TYPE] » (mono Ocre), titre Cormorant 104, accroche en italique, pitch, infos (Mon rôle, Équipe, Période, Technos : libellé mono + valeur, filet Ocre 30 %), tickets « Voir le projet / EN LIGNE » (principal) et « Code source / GITHUB » (papier). Puis l'Écran (visuel ou extrait vidéo), le récit (« Mon rôle », « Le résultat »), « En images » (3 images inclinées), « Voir le projet » (tickets de preuve **sans AC**), « Projet suivant → » (ordre des projets publics, avec une petite affiche). Sections vides masquées |
-| `/profil` | En-tête avec faisceau : portrait encadré (400 × 500), « PROFIL », « Nevii » (Cormorant 104), titre pro en italique, présentation, infos clés (Formation : BUT MMI · Développement web et dispositifs interactifs · Université de la Nouvelle-Calédonie ; Alternance : Développeuse web · ISI NC ; Recherche : placeholder), tickets « Télécharger le CV / PDF » et « Me contacter / MAIL · LINKEDIN ». Puis vidéo de présentation dans l'Écran (« SOUS-TITRES DISPONIBLES »), parcours en générique, « Ce que je sais faire » (5 cartes de compétence), `#contact` avec le grand ticket |
+| `/profil` | En-tête avec faisceau : portrait encadré (400 × 500), « PROFIL », « Geneviève » (Cormorant 104), présentation, infos clés (Formation : BUT MMI · Développement web et dispositifs interactifs · Université de la Nouvelle-Calédonie ; Alternance : Développeuse web · ISI NC ; Recherche : placeholder), tickets « Télécharger le CV / PDF » et « Me contacter / MAIL · LINKEDIN ». Puis vidéo de présentation dans l'Écran (« SOUS-TITRES DISPONIBLES »), parcours en générique, « Ce que je sais faire » (5 cartes de compétence), `#contact` avec le grand ticket |
 | `/mentions-legales` | Éditrice, hébergeur (Netlify), crédits et droits des images ; mise en page éditoriale simple |
 | `/archives` | Rubrique « ARCHIVES · VOLET COMPÉTENCES », titre « Archives » (96), phrase d'accueil ; « Comment lire ces archives » : 3 étapes (numéro mono Ocre, titre Cormorant 26, texte ; filet Vermillon 2 px à gauche) ; « Par où commencer » : 3 cartes d'accès (`bg-papier/3`, contour Ocre 35 %, rayon 4) Fiches réflexives, Bilans par compétence, Matrice des AC ; accès direct aux 5 bilans (noms en Cormorant 28 séparés par des étoiles) |
 | `/archives/projets` | Titre « Fiches réflexives », filtres Compétence (Toutes + 5) et Type, registre : N°, Projet (Cormorant 24), Type, Année, Compétences (pastilles), AC (nombre), flèche |
@@ -241,7 +241,7 @@ Les intitulés des compétences et des AC viennent du référentiel officiel DWE
 - **Présentation** : portrait encadré, titre « Qui je suis », 3 ou 4 phrases, infos clés (formation, alternance, recherche), ticket « Profil complet », vidéo de présentation en vignette secondaire.
 - **Projets — « À l'affiche »** : les affiches `selection: true` (360 px), inclinées, 3 en haut et 2 en dessous, décalées comme sur un mur ; ticket vers `/projets`. Mobile : défilement horizontal avec accroche magnétique et indicateur.
 - **Contact** : grand ticket. Puis pied de page.
-- **Ouverture** (une fois par session, `sessionStorage`, environ 2 s, bouton « Passer » visible et focalisable) : noir complet → le faisceau s'allume en fondu avec un léger scintillement → les filets du cadre se tracent (`stroke-dashoffset`) et « NEVII » apparaît « projeté » avec deux ou trois battements de lumière → l'accroche puis les tickets apparaissent en fondu. Mobile : environ 1,2 s. `prefers-reduced-motion` : pas de séquence, tout est affiché. Le contenu existe dans le DOM dès le départ (pas de page vide pour les lecteurs d'écran ni pour le référencement).
+- **Ouverture** (une fois par session, `sessionStorage`, environ 2 s, bouton « Passer » visible et focalisable) : noir complet → le faisceau s'allume en fondu avec un léger scintillement → les filets du cadre se tracent (`stroke-dashoffset`) et « Geneviève » apparaît « projeté » avec deux ou trois battements de lumière → l'accroche puis les tickets apparaissent en fondu. Mobile : environ 1,2 s. `prefers-reduced-motion` : pas de séquence, tout est affiché. Le contenu existe dans le DOM dès le départ (pas de page vide pour les lecteurs d'écran ni pour le référencement).
 - **Son** : pas maintenant. Prévoir seulement l'emplacement d'un bouton son dans la navigation, désactivé par défaut.
 
 ### Animations, en résumé

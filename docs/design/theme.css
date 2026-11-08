@@ -10,7 +10,7 @@
   /* --- Polices (Google Fonts) -------------------------------------------
      Poiret One 400 · Cormorant Garamond 500 et 500 italique ·
      DM Sans 400 et 600 · JetBrains Mono 400                                */
-  --font-display: "Poiret One", ui-serif, Georgia, serif;         /* « NEVII » du fronton, rien d'autre */
+  --font-display: "Poiret One", ui-serif, Georgia, serif;         /* « GENEVIÈVE » du fronton, rien d'autre */
   --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;   /* titres, accroches */
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;   /* texte, boutons */
   --font-mono: "JetBrains Mono", ui-monospace, monospace;         /* métadonnées en capitales espacées */
