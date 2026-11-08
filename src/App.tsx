@@ -1,20 +1,22 @@
 import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router'
 import VitrineLayout from './layouts/VitrineLayout'
-import ArchivesLayout from './layouts/ArchivesLayout'
-import PageProvisoire from './components/PageProvisoire'
 import Accueil from './pages/vitrine/Accueil'
 import Projets from './pages/vitrine/Projets'
 import Projet from './pages/vitrine/Projet'
 import Profil from './pages/vitrine/Profil'
 import MentionsLegales from './pages/vitrine/MentionsLegales'
 import Introuvable from './pages/vitrine/Introuvable'
-import AccueilArchives from './pages/archives/Accueil'
-import ProjetsArchives from './pages/archives/Projets'
-import ProjetArchives from './pages/archives/Projet'
-import Competence from './pages/archives/Competence'
-import Matrice from './pages/archives/Matrice'
-import { referentiel } from './data/referentiel'
+
+// Archives : chargées à la demande, dans des fichiers à part. Le visiteur de la vitrine
+// ne télécharge ni leurs pages, ni le référentiel, ni le texte des fiches réflexives.
+const ArchivesLayout = lazy(() => import('./layouts/ArchivesLayout'))
+const AccueilArchives = lazy(() => import('./pages/archives/Accueil'))
+const ProjetsArchives = lazy(() => import('./pages/archives/Projets'))
+const ProjetArchives = lazy(() => import('./pages/archives/Projet'))
+const Competence = lazy(() => import('./pages/archives/Competence'))
+const Matrice = lazy(() => import('./pages/archives/Matrice'))
+const IntrouvableArchives = lazy(() => import('./pages/archives/Introuvable'))
 
 // Planche des composants : chargée seulement en développement, absente du site publié
 const Composants = import.meta.env.DEV ? lazy(() => import('./pages/Composants')) : null
@@ -43,14 +45,21 @@ export default function App() {
       </Route>
 
       {/* Archives : privées (noindex), aucun lien depuis la vitrine */}
-      <Route path="archives" element={<ArchivesLayout />}>
+      <Route
+        path="archives"
+        element={
+          <Suspense>
+            <ArchivesLayout />
+          </Suspense>
+        }
+      >
         <Route index element={<AccueilArchives />} />
         <Route path="projets" element={<ProjetsArchives />} />
         <Route path="projets/:slug" element={<ProjetArchives />} />
-        <Route path="competences" element={<Navigate to={referentiel[0].slug} replace />} />
+        <Route path="competences" element={<Navigate to="comprendre" replace />} />
         <Route path="competences/:nom" element={<Competence />} />
         <Route path="matrice" element={<Matrice />} />
-        <Route path="*" element={<PageProvisoire rubrique="Archives · Erreur 404" titre="Page introuvable" />} />
+        <Route path="*" element={<IntrouvableArchives />} />
       </Route>
     </Routes>
   )

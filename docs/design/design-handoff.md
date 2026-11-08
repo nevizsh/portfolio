@@ -72,6 +72,7 @@ ac: []                 # codes AC du référentiel DWEB
 - Le champ `ac` alimente l'index des archives, les bilans et la matrice : rien n'est saisi deux fois.
 - Le filtre « Type » de l'index des archives (SAÉ, Alternance, TP / ressource, Personnel) n'a pas encore de champ : prévoir un champ `type` optionnel, vide par défaut.
 - Valider le frontmatter avec un schéma (Zod ou un type TS) : un projet `selection: true` sans `vitrine: true` doit lever une erreur au build.
+- **Mise en œuvre** (voir `src/content/projets/README.md`) : le frontmatter est lu et validé au build par un plugin Vite et servi par le module virtuel `virtual:projets` ; le corps MDX (la fiche) est chargé à la demande, seulement dans les archives. Champ `titreCourt` pour les colonnes de la matrice. Dans le corps, `<AcDemontre code="AC24.01" preuve={1}>…</AcDemontre>` (intitulé officiel affiché automatiquement) et `<Preuves numeros={[1, 2]} />` ; un code absent du champ `ac` ou une preuve inexistante arrête le build. Les bilans par compétence sont dans `src/content/archives.ts`.
 
 ## Jetons
 
@@ -210,7 +211,7 @@ Bloc centré par étape : rôle et dates en mono 12 px Ocre espacé 14 % ; intit
 Carte Papier, rayon 6, ombre `shadow-carte`, padding 24 22 26 ; étoile Vermillon 14 px, titre Cormorant 24 px Encre, phrase DM Sans 14 px Encre à 80 %. 5 cartes en ligne (bureau), empilées en mobile ; inclinées de -1,5° à +1,4°, redressées au survol.
 
 ### Registre (archives)
-Tableaux sobres : en-tête mono 11 px Turquoise espacé 12 % avec filet bas Ocre à 60 % ; lignes avec filet Ocre à 20 % ; codes AC en mono Vermillon ; ligne survolée en `bg-papier/4` avec la flèche qui passe en Vermillon. Vrais `<table>` (avec `<th scope>`), ou une liste de liens si la ligne entière est cliquable.
+Tableaux sobres : en-tête mono 11 px Turquoise espacé 12 % avec filet bas Ocre à 60 % ; lignes avec filet Ocre à 20 % ; codes AC en mono Vermillon ; ligne survolée en `bg-papier/4` avec la flèche qui passe en Vermillon. (La note de la capture « fond surface » n'est pas retenue : `bg-papier/4` validé.) Statut des AC dans les bilans calculé depuis les MDX : « Démontré » dès qu'un projet cite l'AC, sinon « À démontrer ». Vrais `<table>` (avec `<th scope>`), ou une liste de liens si la ligne entière est cliquable.
 
 ### Navigation et pied de page
 - **Vitrine bureau** (80 px de haut, padding horizontal 80) : étoile Vermillon 16 px + logotype « nevizsh » Cormorant 28 px à gauche ; à droite, Accueil, Projets, Profil (DM Sans 15 px, espacement 40), puis « Contact » dans un cadre Ocre 1 px (rayon 2, padding 9 18) vers `/profil#contact`. Lien actif : `texte-titre-accent`.
