@@ -50,7 +50,12 @@ export default function Faisceau({ className = '' }: FaisceauProps) {
   }, [])
 
   return (
-    <div ref={racine} aria-hidden="true" className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}>
+    // Le masque fait s'éteindre la lumière en douceur vers le bas (pas de coupure nette en fin d'en-tête)
+    <div
+      ref={racine}
+      aria-hidden="true"
+      className={`pointer-events-none absolute inset-0 overflow-hidden [mask-image:linear-gradient(to_bottom,black_55%,transparent)] ${className}`}
+    >
       {/* Le flou est sur le parent : le trapèze est d'abord découpé, puis adouci */}
       <div className="faisceau absolute inset-0 blur-[28px]">
         <div
