@@ -34,23 +34,23 @@ function EnTete() {
 
       <div className={`${marges} flex flex-col items-center pt-[120px] pb-20 md:pt-[150px] md:pb-[110px]`}>
         <CadreArtDeco eventail className="w-full max-w-[760px]">
-          <div className="flex flex-col items-center px-4 py-10 text-center md:min-h-[320px] md:justify-center md:py-12">
+          {/* @container : la taille du prénom suit la largeur du cadre (unité cqi) */}
+          <div className="@container flex flex-col items-center px-4 py-10 text-center md:min-h-[320px] md:justify-center md:py-12">
             <p className="ouv-fronton font-mono text-[11px] tracking-[0.34em] text-texte-ornement uppercase md:text-[13px]">Portfolio 2026</p>
+            {/* « GENEVIÈVE » mesure environ 6,4 fois la taille de police : à 14 % de la largeur du cadre,
+                il occupe près de 90 % de l'intérieur (environ 100 px sur ordinateur, 42 px sur mobile) */}
             <h1
               id="titre-accueil"
-              className="ouv-nevii mt-2 font-display text-[64px] leading-none tracking-[0.22em] md:mt-3 md:text-[150px]"
+              className="ouv-genevieve mt-3 font-display text-[14cqi] leading-none tracking-[0.22em] md:mt-4"
               style={{ textShadow: '0 0 36px rgb(222 196 132 / .35)' }}
             >
               {/* Le décalage compense l'espacement ajouté après la dernière lettre */}
-              <span className="mr-[-0.22em]">NEVII</span>
+              <span className="mr-[-0.22em]">GENEVIÈVE</span>
             </h1>
             <p aria-hidden="true" className="ouv-fronton mt-6 flex items-center gap-3 md:mt-5">
               <span className="h-px w-[70px] bg-bordure-filet" />
               <Etoile taille={11} className="text-vermillon" />
               <span className="h-px w-[70px] bg-bordure-filet" />
-            </p>
-            <p className="ouv-fronton mt-5 font-mono text-[12px] tracking-[0.26em] text-texte-ornement uppercase md:text-[13px]">
-              {profil.titrePro}
             </p>
           </div>
         </CadreArtDeco>

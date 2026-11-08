@@ -36,17 +36,16 @@ export default function Composants() {
         <div className="relative -mx-5 flex min-h-[560px] items-center justify-center overflow-hidden px-5 md:-mx-20">
           <Faisceau />
           <CadreArtDeco eventail className="w-full max-w-[760px]">
-            <div className="flex flex-col items-center px-6 py-12 text-center">
+            <div className="@container flex flex-col items-center px-6 py-12 text-center">
               <p className="font-mono text-[13px] tracking-[0.34em] text-texte-ornement uppercase">Portfolio 2026</p>
-              <p className="mt-2 font-display text-[72px] leading-none tracking-[0.22em] md:text-[150px]" style={{ textShadow: '0 0 36px rgb(222 196 132 / .35)' }}>
-                NEVII
+              <p className="mt-3 font-display text-[14cqi] leading-none tracking-[0.22em]" style={{ textShadow: '0 0 36px rgb(222 196 132 / .35)' }}>
+                <span className="mr-[-0.22em]">GENEVIÈVE</span>
               </p>
               <p aria-hidden="true" className="mt-4 flex items-center gap-3">
                 <span className="h-px w-[70px] bg-bordure-filet" />
                 <Etoile taille={11} className="text-vermillon" />
                 <span className="h-px w-[70px] bg-bordure-filet" />
               </p>
-              <p className="mt-4 font-mono text-[13px] tracking-[0.26em] text-texte-ornement uppercase">[Ton titre pro]</p>
             </div>
           </CadreArtDeco>
         </div>

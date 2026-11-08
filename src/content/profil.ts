@@ -1,8 +1,7 @@
 // Textes du profil, partagés par l'accueil et la page Profil.
 // Les infos clés « Formation » et « Alternance » viennent de la passation ; le reste est à compléter.
 export const profil = {
-  nom: 'Nevii',
-  titrePro: '[Ton titre pro]',
+  nom: 'Geneviève',
   accroche: '[Accroche : une phrase forte qui donne envie de découvrir tes projets]',
   presentation: '[Présentation en 3 ou 4 phrases : qui tu es, ce que tu fais entre code et image, ce qui t\'anime, ce que tu cherches.]',
   infosCles: [
