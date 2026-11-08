@@ -180,7 +180,7 @@ Placement : chaque affiche est **inclinée** entre -2,5° et +2° (valeur stable
 Étiquette Ocre (`accent-reflet`), rayon 2, padding 5 12 5 10, ombre `0 4px 8px rgb(0 0 0 / .35)` ; étoile Vermillon sombre 10 px + « À L'AFFICHE » mono 10 px Encre espacé 12 % ; posée à cheval sur le bord haut de l'affiche, centrée (y -12). Affichée seulement si `selection` **et** sur la page Projets (pas sur l'accueil).
 
 ### Fronton de l'accueil (prénom seul, sans cadre)
-Centré dans le faisceau, sans cadre ni ornement : « PORTFOLIO 2026 » mono 13 px Ocre espacé 34 % ; « Geneviève » en Elsie 900, Papier, casse normale, sans espacement de lettres, taille `min(170px, 18cqi)` (la colonne est un conteneur `@container` ; « Geneviève » mesure environ 4,9 fois la taille de police : ≈ 830 px de large sur ordinateur, 60 px de police sur mobile) ; étoile Vermillon de 14 px en haut à droite du prénom (décorative) ; halo ocre très léger optionnel (`text-shadow: 0 0 40px rgb(222 196 132 / .18)`, constante `HALO`). Puis l'accroche en DM Sans 24 px (18 en mobile), `texte-secondaire`, 640 px de large, et les deux tickets.
+Centré dans le faisceau, sans cadre ni ornement : « PORTFOLIO 2026 » mono 13 px Ocre espacé 34 % ; « Geneviève » en Elsie 900, Papier, casse normale, sans espacement de lettres, taille `min(170px, 18cqi)` (la colonne est un conteneur `@container` ; « Geneviève » mesure environ 4,9 fois la taille de police : ≈ 830 px de large sur ordinateur, 60 px de police sur mobile) ; étoile Vermillon de 14 px en haut à droite du prénom (décorative) ; pas de halo. Puis l'accroche en DM Sans 24 px (18 en mobile), `texte-secondaire`, 640 px de large, et les deux tickets.
 
 ### Cadre Art déco (portraits)
 Double filet Ocre aux angles coupés, sans fond. Pour 760 × 320 :
@@ -192,7 +192,7 @@ intérieur (trait 0,6 px, 50 %) : M22.8 8H737.2L752 22.8V297.2L737.2 312H22.8L8 
 Portrait : même cadre (coupe 16 px), 400 × 500 au profil, 260 × 320 en mobile, emplacement `Visuel` en retrait de 18 px.
 
 ### Faisceau du projecteur
-Décor `aria-hidden` en fond d'en-tête (accueil, Projets, page projet, profil ; **jamais dans les archives**) : un trapèze Ocre flouté (`filter: blur(28px)`, opacité 5 à 7 %) qui part du haut à droite (de 88 % à 102 % de la largeur) et s'élargit vers le bas (de 30 % à 62 %) ; 18 grains de poussière (points Papier de 1,2 à 2,8 px, opacité 15 à 50 %) répartis dans le cône, qui dérivent très lentement (GSAP, 20 à 40 s, boucle). Coupé si `prefers-reduced-motion`.
+Décor `aria-hidden` en fond d'en-tête (accueil, Projets, page projet, profil ; **jamais dans les archives**) : un trapèze Ocre flouté (`filter: blur(28px)`, opacité 5 à 7 %) qui part du haut à droite (de 88 % à 102 % de la largeur) et s'élargit vers le bas (de 30 % à 62 %) ; 18 grains de poussière (points Papier de 1,2 à 2,8 px, opacité 15 à 50 %) répartis dans le cône, qui dérivent très lentement (GSAP, 20 à 40 s, boucle). Coupé si `prefers-reduced-motion`. Il s'éteint en fondu vers le bas (`mask-image: linear-gradient(to bottom, black 55%, transparent)`), pour ne jamais s'arrêter net en fin d'en-tête ; le léger dégradé turquoise du hero de l'accueil revient aussi au transparent en bas.
 
 ### Écran
 Cadre à trait Ocre 1,5 px, fond Encre, ombre `shadow-ecran`, padding 16 ; contient la vidéo (ou un `Visuel`), bouton de lecture rond Vermillon de 88 px avec un triangle Encre. 960 × 540 au profil, 1280 × 640 en page projet. Vidéo : sous-titres obligatoires, jamais de lecture automatique avec le son.

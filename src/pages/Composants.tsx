@@ -32,21 +32,16 @@ export default function Composants() {
       <title>Composants · développement</title>
       <h1 className="font-serif text-[64px] leading-[0.95] md:text-[80px]">Composants</h1>
 
-      <Bloc titre="Faisceau + fronton (prénom seul, avec et sans halo)">
-        <div className="relative -mx-5 flex min-h-[560px] flex-col items-center justify-center gap-12 overflow-hidden px-5 md:-mx-20">
+      <Bloc titre="Faisceau + fronton (prénom seul)">
+        <div className="relative -mx-5 flex min-h-[560px] flex-col items-center justify-center overflow-hidden px-5 md:-mx-20">
           <Faisceau />
-          {[true, false].map((halo) => (
-            <div key={String(halo)} className="@container flex w-full flex-col items-center text-center">
-              <p className="font-mono text-[13px] tracking-[0.34em] text-texte-ornement uppercase">Portfolio 2026 · {halo ? 'halo' : 'sans halo'}</p>
-              <p
-                className="relative mt-4 font-display text-[min(170px,18cqi)] leading-[1.05] font-black text-papier"
-                style={halo ? { textShadow: '0 0 40px rgb(222 196 132 / .18)' } : undefined}
-              >
-                Geneviève
-                <Etoile taille={14} className="absolute top-[0.12em] -right-[0.22em] text-vermillon" />
-              </p>
-            </div>
-          ))}
+          <div className="@container flex w-full flex-col items-center text-center">
+            <p className="font-mono text-[13px] tracking-[0.34em] text-texte-ornement uppercase">Portfolio 2026</p>
+            <p className="relative mt-4 font-display text-[min(170px,18cqi)] leading-[1.05] font-black text-papier">
+              Geneviève
+              <Etoile taille={14} className="absolute top-[0.12em] -right-[0.22em] text-vermillon" />
+            </p>
+          </div>
         </div>
       </Bloc>
 

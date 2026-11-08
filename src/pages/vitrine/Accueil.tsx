@@ -17,9 +17,6 @@ import { profil } from '../../content/profil'
 
 const marges = 'mx-auto max-w-[1440px] px-5 md:px-20'
 
-// Halo ocre très léger autour du prénom (false : aucun halo)
-const HALO = true
-
 /* ---------------------------------------------------------------------------
  * En-tête : faisceau, prénom seul (sans cadre), accroche, deux tickets
  * ------------------------------------------------------------------------- */
@@ -31,7 +28,7 @@ function EnTete() {
     <section
       ref={racine}
       aria-labelledby="titre-accueil"
-      className="relative isolate overflow-hidden bg-[linear-gradient(to_bottom,transparent_55%,rgb(22_80_90/0.09))] md:min-h-[810px]"
+      className="relative isolate overflow-hidden bg-[linear-gradient(to_bottom,transparent_40%,rgb(22_80_90/0.09)_75%,transparent)] md:min-h-[810px]"
     >
       <Faisceau className="ouv-faisceau -z-10" />
 
@@ -43,7 +40,6 @@ function EnTete() {
         <h1
           id="titre-accueil"
           className="ouv-genevieve relative mt-4 font-display text-[min(170px,18cqi)] leading-[1.05] font-black text-papier md:mt-5"
-          style={HALO ? { textShadow: '0 0 40px rgb(222 196 132 / .18)' } : undefined}
         >
           Geneviève
           <Etoile taille={14} className="absolute top-[0.12em] -right-[0.22em] text-vermillon" />
