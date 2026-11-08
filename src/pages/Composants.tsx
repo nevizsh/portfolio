@@ -32,23 +32,30 @@ export default function Composants() {
       <title>Composants · développement</title>
       <h1 className="font-serif text-[64px] leading-[0.95] md:text-[80px]">Composants</h1>
 
-      <Bloc titre="Faisceau + Cadre Art déco (fronton)">
-        <div className="relative -mx-5 flex min-h-[560px] items-center justify-center overflow-hidden px-5 md:-mx-20">
+      <Bloc titre="Faisceau + fronton (prénom seul, avec et sans halo)">
+        <div className="relative -mx-5 flex min-h-[560px] flex-col items-center justify-center gap-12 overflow-hidden px-5 md:-mx-20">
           <Faisceau />
-          <CadreArtDeco eventail className="w-full max-w-[760px]">
-            <div className="@container flex flex-col items-center px-6 py-12 text-center">
-              <p className="font-mono text-[13px] tracking-[0.34em] text-texte-ornement uppercase">Portfolio 2026</p>
-              <p className="mt-3 font-display text-[14cqi] leading-none tracking-[0.22em]" style={{ textShadow: '0 0 36px rgb(222 196 132 / .35)' }}>
-                <span className="mr-[-0.22em]">GENEVIÈVE</span>
-              </p>
-              <p aria-hidden="true" className="mt-4 flex items-center gap-3">
-                <span className="h-px w-[70px] bg-bordure-filet" />
-                <Etoile taille={11} className="text-vermillon" />
-                <span className="h-px w-[70px] bg-bordure-filet" />
+          {[true, false].map((halo) => (
+            <div key={String(halo)} className="@container flex w-full flex-col items-center text-center">
+              <p className="font-mono text-[13px] tracking-[0.34em] text-texte-ornement uppercase">Portfolio 2026 · {halo ? 'halo' : 'sans halo'}</p>
+              <p
+                className="relative mt-4 font-display text-[min(170px,18cqi)] leading-[1.05] font-black text-papier"
+                style={halo ? { textShadow: '0 0 40px rgb(222 196 132 / .18)' } : undefined}
+              >
+                Geneviève
+                <Etoile taille={14} className="absolute top-[0.12em] -right-[0.22em] text-vermillon" />
               </p>
             </div>
-          </CadreArtDeco>
+          ))}
         </div>
+      </Bloc>
+
+      <Bloc titre="Cadre Art déco (portraits)">
+        <CadreArtDeco className="aspect-[400/500] w-[260px]">
+          <div className="absolute inset-0 p-[18px]">
+            <Visuel libelle="Portrait" className="size-full" />
+          </div>
+        </CadreArtDeco>
       </Bloc>
 
       <Bloc titre="Tickets">
