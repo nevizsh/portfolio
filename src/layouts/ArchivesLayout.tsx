@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { Link, NavLink, Outlet } from 'react-router'
 import Etoile from '../components/Etoile'
 import Defilement from '../components/Defilement'
@@ -42,7 +43,10 @@ export default function ArchivesLayout() {
       </header>
 
       <main id="contenu" tabIndex={-1} className="flex-1 outline-none">
-        <Outlet />
+        {/* Chaque page des archives est chargée à la demande : la navigation et le pied de page restent affichés */}
+        <Suspense>
+          <Outlet />
+        </Suspense>
       </main>
 
       <footer className="border-t border-bordure-filet">
