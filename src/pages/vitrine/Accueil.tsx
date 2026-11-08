@@ -17,8 +17,11 @@ import { profil } from '../../content/profil'
 
 const marges = 'mx-auto max-w-[1440px] px-5 md:px-20'
 
+// Halo ocre très léger autour du prénom (false : aucun halo)
+const HALO = true
+
 /* ---------------------------------------------------------------------------
- * En-tête : faisceau, fronton dans le cadre Art déco, accroche, deux tickets
+ * En-tête : faisceau, prénom seul (sans cadre), accroche, deux tickets
  * ------------------------------------------------------------------------- */
 function EnTete() {
   const racine = useRef<HTMLElement>(null)
@@ -32,30 +35,21 @@ function EnTete() {
     >
       <Faisceau className="ouv-faisceau -z-10" />
 
-      <div className={`${marges} flex flex-col items-center pt-[120px] pb-20 md:pt-[150px] md:pb-[110px]`}>
-        <CadreArtDeco eventail className="w-full max-w-[760px]">
-          {/* @container : la taille du prénom suit la largeur du cadre (unité cqi) */}
-          <div className="@container flex flex-col items-center px-4 py-10 text-center md:min-h-[320px] md:justify-center md:py-12">
-            <p className="ouv-fronton font-mono text-[11px] tracking-[0.34em] text-texte-ornement uppercase md:text-[13px]">Portfolio 2026</p>
-            {/* « GENEVIÈVE » mesure environ 6,4 fois la taille de police : à 14 % de la largeur du cadre,
-                il occupe près de 90 % de l'intérieur (environ 100 px sur ordinateur, 42 px sur mobile) */}
-            <h1
-              id="titre-accueil"
-              className="ouv-genevieve mt-3 font-display text-[14cqi] leading-none tracking-[0.22em] md:mt-4"
-              style={{ textShadow: '0 0 36px rgb(222 196 132 / .35)' }}
-            >
-              {/* Le décalage compense l'espacement ajouté après la dernière lettre */}
-              <span className="mr-[-0.22em]">GENEVIÈVE</span>
-            </h1>
-            <p aria-hidden="true" className="ouv-fronton mt-6 flex items-center gap-3 md:mt-5">
-              <span className="h-px w-[70px] bg-bordure-filet" />
-              <Etoile taille={11} className="text-vermillon" />
-              <span className="h-px w-[70px] bg-bordure-filet" />
-            </p>
-          </div>
-        </CadreArtDeco>
+      {/* @container : la taille du prénom suit la largeur de la colonne (unité cqi) */}
+      <div className={`${marges} @container flex flex-col items-center pt-[120px] pb-20 text-center md:pt-[170px] md:pb-[110px]`}>
+        <p className="ouv-fronton font-mono text-[11px] tracking-[0.34em] text-texte-ornement uppercase md:text-[13px]">Portfolio 2026</p>
+        {/* « Geneviève » en Elsie Black mesure environ 4,9 fois la taille de police :
+            18 % de la colonne, plafonné à 170 px (≈ 830 px de large sur ordinateur, 60 px sur mobile) */}
+        <h1
+          id="titre-accueil"
+          className="ouv-genevieve relative mt-4 font-display text-[min(170px,18cqi)] leading-[1.05] font-black text-papier md:mt-5"
+          style={HALO ? { textShadow: '0 0 40px rgb(222 196 132 / .18)' } : undefined}
+        >
+          Geneviève
+          <Etoile taille={14} className="absolute top-[0.12em] -right-[0.22em] text-vermillon" />
+        </h1>
 
-        <p className="ouv-suite mt-14 max-w-[720px] text-center font-serif text-[28px] leading-tight italic md:mt-[60px] md:text-[32px]">
+        <p className="ouv-suite mt-8 max-w-[640px] text-[18px] leading-snug text-texte-secondaire md:mt-10 md:text-[24px]">
           {profil.accroche}
         </p>
 

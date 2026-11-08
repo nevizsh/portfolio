@@ -78,7 +78,7 @@ ac: []                 # codes AC du référentiel DWEB
 Tout est dans `theme.css` (bloc `@theme` Tailwind v4). Les noms correspondent à la « code syntax » des variables Figma : `fond/surface` → `--color-fond-surface` → `bg-fond-surface`.
 
 **Polices** (Google Fonts, `display=swap`, préconnexion) :
-- **Poiret One** 400 : uniquement « Geneviève » sur le fronton de l'accueil (`font-display`).
+- **Elsie** 400 et 900 : uniquement « Geneviève » sur le fronton de l'accueil, en 900 (`font-display font-black`).
 - Cormorant Garamond 500 et 500 italique : titres, accroches (`font-serif`).
 - DM Sans 400 et 600 : texte, libellés de tickets (`font-sans`).
 - JetBrains Mono 400 : métadonnées en capitales espacées de 10 à 14 % (numéros, années, technos, codes AC, rubriques) (`font-mono`, classe `.meta`).
@@ -179,17 +179,16 @@ Placement : chaque affiche est **inclinée** entre -2,5° et +2° (valeur stable
 ### Ruban « À l'affiche »
 Étiquette Ocre (`accent-reflet`), rayon 2, padding 5 12 5 10, ombre `0 4px 8px rgb(0 0 0 / .35)` ; étoile Vermillon sombre 10 px + « À L'AFFICHE » mono 10 px Encre espacé 12 % ; posée à cheval sur le bord haut de l'affiche, centrée (y -12). Affichée seulement si `selection` **et** sur la page Projets (pas sur l'accueil).
 
-### Cadre Art déco (fronton de l'accueil, portrait)
+### Fronton de l'accueil (prénom seul, sans cadre)
+Centré dans le faisceau, sans cadre ni ornement : « PORTFOLIO 2026 » mono 13 px Ocre espacé 34 % ; « Geneviève » en Elsie 900, Papier, casse normale, sans espacement de lettres, taille `min(170px, 18cqi)` (la colonne est un conteneur `@container` ; « Geneviève » mesure environ 4,9 fois la taille de police : ≈ 830 px de large sur ordinateur, 60 px de police sur mobile) ; étoile Vermillon de 14 px en haut à droite du prénom (décorative) ; halo ocre très léger optionnel (`text-shadow: 0 0 40px rgb(222 196 132 / .18)`, constante `HALO`). Puis l'accroche en DM Sans 24 px (18 en mobile), `texte-secondaire`, 640 px de large, et les deux tickets.
+
+### Cadre Art déco (portraits)
 Double filet Ocre aux angles coupés, sans fond. Pour 760 × 320 :
 ```
 extérieur (trait 1 px, 100 %) : M18.5 0.5H741.5L759.5 18.5V301.5L741.5 319.5H18.5L0.5 301.5V18.5L18.5 0.5Z
 intérieur (trait 0,6 px, 50 %) : M22.8 8H737.2L752 22.8V297.2L737.2 312H22.8L8 297.2V22.8L22.8 8Z
 ```
-À générer selon la taille (coupe de 18 px à l'extérieur, 14,8 px à l'intérieur, retrait de 8 px). Éventail au-dessus du fronton (68 × 34, Ocre 0,8 px, opacité 55 %, centré à y -40) :
-```
-viewBox="0 0 68 34"  M34 34H0M34 34L2.6 21M34 34L10 10M34 34L21 2.6M34 34V0M34 34L47 2.6M34 34L58 10M34 34L65.4 21M34 34H68
-```
-Contenu du fronton (centré) : « PORTFOLIO 2026 » mono 13 px Ocre espacé 34 % ; « GENEVIÈVE » Poiret One espacé 22 %, taille liée à la largeur du cadre (`14cqi`, environ 100 px sur ordinateur, 42 px sur mobile ; 150 px débordait avec 9 lettres), Papier, halo ocre (`text-shadow: 0 0 36px rgb(222 196 132 / .35)`) ; séparateur (deux filets Ocre de 70 px + étoile Vermillon de 11 px). Pas de titre pro.
+À générer selon la taille (coupe extérieure, coupe intérieure = coupe − 3,2 px, retrait de 8 px). Pas d'éventail (retiré du site).
 Portrait : même cadre (coupe 16 px), 400 × 500 au profil, 260 × 320 en mobile, emplacement `Visuel` en retrait de 18 px.
 
 ### Faisceau du projecteur
@@ -224,7 +223,7 @@ Tableaux sobres : en-tête mono 11 px Turquoise espacé 12 % avec filet bas Ocre
 | Route | Contenu |
 | --- | --- |
 | `/` | Voir « Accueil » ci-dessous |
-| `/projets` | En-tête avec faisceau : éventail, « AU PROGRAMME » (mono), « Projets » (Cormorant 80), une phrase. Filtres centrés : Tout + les domaines présents dans les MDX, avec compteurs ; ligne « N PROJETS · LA SÉLECTION EN PREMIER ». Grille de 4 affiches de 280 px par ligne (espacement 40 × 80), la sélection d'abord (ruban « À l'affiche »), puis les autres projets publics. Filtre dans l'adresse (`?domaine=video`). Mobile : puces en défilement horizontal, 1 affiche par ligne (2 sur tablette) |
+| `/projets` | En-tête avec faisceau : « AU PROGRAMME » (mono), « Projets » (Cormorant 80), une phrase. Filtres centrés : Tout + les domaines présents dans les MDX, avec compteurs ; ligne « N PROJETS · LA SÉLECTION EN PREMIER ». Grille de 4 affiches de 280 px par ligne (espacement 40 × 80), la sélection d'abord (ruban « À l'affiche »), puis les autres projets publics. Filtre dans l'adresse (`?domaine=video`). Mobile : puces en défilement horizontal, 1 affiche par ligne (2 sur tablette) |
 | `/projets/:slug` | En-tête avec faisceau : fil d'Ariane « Projets / Titre », affiche du projet à gauche (×1,12, -2°) ; à droite « N° 0X · [ANNÉE] · [TYPE] » (mono Ocre), titre Cormorant 104, accroche en italique, pitch, infos (Mon rôle, Équipe, Période, Technos : libellé mono + valeur, filet Ocre 30 %), tickets « Voir le projet / EN LIGNE » (principal) et « Code source / GITHUB » (papier). Puis l'Écran (visuel ou extrait vidéo), le récit (« Mon rôle », « Le résultat »), « En images » (3 images inclinées), « Voir le projet » (tickets de preuve **sans AC**), « Projet suivant → » (ordre des projets publics, avec une petite affiche). Sections vides masquées |
 | `/profil` | En-tête avec faisceau : portrait encadré (400 × 500), « PROFIL », « Geneviève » (Cormorant 104), présentation, infos clés (Formation : BUT MMI · Développement web et dispositifs interactifs · Université de la Nouvelle-Calédonie ; Alternance : Développeuse web · ISI NC ; Recherche : placeholder), tickets « Télécharger le CV / PDF » et « Me contacter / MAIL · LINKEDIN ». Puis vidéo de présentation dans l'Écran (« SOUS-TITRES DISPONIBLES »), parcours en générique, « Ce que je sais faire » (5 cartes de compétence), `#contact` avec le grand ticket |
 | `/mentions-legales` | Éditrice, hébergeur (Netlify), crédits et droits des images ; mise en page éditoriale simple |
@@ -237,11 +236,11 @@ Tableaux sobres : en-tête mono 11 px Turquoise espacé 12 % avec filet bas Ocre
 Les intitulés des compétences et des AC viennent du référentiel officiel DWEB : les stocker dans un fichier de données unique (`src/data/referentiel.ts`), avec des emplacements si Geneviève ne les a pas encore fournis. Ne jamais les reformuler.
 
 ### Accueil
-- **Hero** (810 px de haut) : faisceau + poussière ; Cadre Art déco 760 × 320 centré (y 150) avec le fronton ; dessous, accroche Cormorant italique 32 px (720 px, centrée) et deux tickets « Voir les projets » (principal) et « Me contacter » (papier).
+- **Hero** (810 px de haut) : faisceau + poussière ; fronton sans cadre (voir « Fronton de l'accueil ») ; dessous, accroche DM Sans 24 px (640 px, centrée) et deux tickets « Voir les projets » (principal) et « Me contacter » (papier).
 - **Présentation** : portrait encadré, titre « Qui je suis », 3 ou 4 phrases, infos clés (formation, alternance, recherche), ticket « Profil complet », vidéo de présentation en vignette secondaire.
 - **Projets — « À l'affiche »** : les affiches `selection: true` (360 px), inclinées, 3 en haut et 2 en dessous, décalées comme sur un mur ; ticket vers `/projets`. Mobile : défilement horizontal avec accroche magnétique et indicateur.
 - **Contact** : grand ticket. Puis pied de page.
-- **Ouverture** (une fois par session, `sessionStorage`, environ 2 s, bouton « Passer » visible et focalisable) : noir complet → le faisceau s'allume en fondu avec un léger scintillement → les filets du cadre se tracent (`stroke-dashoffset`) et « Geneviève » apparaît « projeté » avec deux ou trois battements de lumière → l'accroche puis les tickets apparaissent en fondu. Mobile : environ 1,2 s. `prefers-reduced-motion` : pas de séquence, tout est affiché. Le contenu existe dans le DOM dès le départ (pas de page vide pour les lecteurs d'écran ni pour le référencement).
+- **Ouverture** (une fois par session, `sessionStorage`, environ 2 s, bouton « Passer » visible et focalisable) : noir complet → le faisceau s'allume en fondu avec un léger scintillement → « PORTFOLIO 2026 » apparaît, puis « Geneviève » apparaît « projeté » avec deux ou trois battements de lumière → l'accroche, les tickets et la navigation apparaissent en fondu. Mobile : environ 1,2 s. `prefers-reduced-motion` : pas de séquence, tout est affiché. Le contenu existe dans le DOM dès le départ (pas de page vide pour les lecteurs d'écran ni pour le référencement).
 - **Son** : pas maintenant. Prévoir seulement l'emplacement d'un bouton son dans la navigation, désactivé par défaut.
 
 ### Animations, en résumé
