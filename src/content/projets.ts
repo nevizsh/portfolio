@@ -1,27 +1,35 @@
-import type { ComponentType } from 'react'
-import { validerProjet, type Projet } from './schema'
+import { lazy, type ComponentType, type LazyExoticComponent } from 'react'
+import type { MDXComponents } from 'mdx/types'
+import donnees from 'virtual:projets'
+import type { Projet } from './schema'
 
 /*
  * Chargement des projets : un fichier MDX par projet.
- * Le frontmatter (en-tête YAML) donne les données ; le corps MDX est la fiche réflexive (archives).
+ *  - Les données (frontmatter) viennent du module virtuel « virtual:projets », lu et validé
+ *    au build par le plugin de vite.config.ts : elles sont légères et servent partout.
+ *  - Le corps MDX (la fiche réflexive) est chargé à la demande, seulement dans les archives :
+ *    il n'est pas dans le fichier JavaScript téléchargé par les visiteurs de la vitrine.
  *
  * Projets de test (pour essayer les filtres sans inventer de domaines dans les vrais fichiers) :
  *   npm run dev:test   → charge src/dev/projets-test/ à la place de src/content/projets/
  */
 
-type ModuleMdx = { frontmatter: unknown; default: ComponentType }
+type CorpsFiche = ComponentType<{ components?: MDXComponents }>
+type ChargeurFiche = () => Promise<{ default: CorpsFiche }>
 
 export type ProjetCharge = Projet & {
-  /** Corps MDX : la fiche réflexive */
-  Fiche: ComponentType
+  /** Titres de niveau 2 du corps de la fiche (« Contexte et demande », « Axe 1 — … ») */
+  sections: string[]
+  /** Corps MDX : la fiche réflexive, chargée à la demande */
+  Fiche: LazyExoticComponent<CorpsFiche>
 }
 
-const vrais = import.meta.glob<ModuleMdx>('./projets/*.mdx', { eager: true })
-const deTest = import.meta.env.DEV && import.meta.env.VITE_PROJETS_TEST === '1'
-  ? import.meta.glob<ModuleMdx>('../dev/projets-test/*.mdx', { eager: true })
-  : null
+const fichiers: Record<string, ChargeurFiche> =
+  import.meta.env.DEV && import.meta.env.VITE_PROJETS_TEST === '1'
+    ? import.meta.glob<{ default: CorpsFiche }>('../dev/projets-test/*.mdx')
+    : import.meta.glob<{ default: CorpsFiche }>('./projets/*.mdx')
 
-const modules = deTest ?? vrais
+const chargeurs = new Map(Object.entries(fichiers).map(([chemin, charger]) => [chemin.split('/').pop()!.replace('.mdx', ''), charger]))
 
 /** Ordre : numéro (les « 0X » après les numéros connus), puis titre. */
 const versNombre = (numero: string) => (/^\d+$/.test(numero) ? Number(numero) : Number.NaN)
@@ -39,8 +47,8 @@ const parOrdre = (a: Projet, b: Projet) => {
 }
 
 /** Tous les projets, publics ou non (archives) */
-export const projets: ProjetCharge[] = Object.entries(modules)
-  .map(([fichier, m]) => ({ ...validerProjet(m.frontmatter, fichier), Fiche: m.default }))
+export const projets: ProjetCharge[] = donnees
+  .map((p) => ({ ...p, Fiche: lazy(chargeurs.get(p.slug)!) }))
   .sort(parOrdre)
 
 /** Projets publics (page Projets), la sélection en premier */

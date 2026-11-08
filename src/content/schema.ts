@@ -46,6 +46,8 @@ export const schemaProjet = z
     ac: z.array(codeAC).default([]),
 
     // --- Champs ajoutés pour les pages (voir les captures) : tous facultatifs ---
+    /** Titre court : colonnes de la matrice des AC (vide → titre) */
+    titreCourt: z.string().default(''),
     equipe: z.string().default(''),
     periode: z.string().default(''),
     cadre: z.string().default(''),
